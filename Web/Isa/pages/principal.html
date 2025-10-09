@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/principal.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Font Awesome CDN-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Delícias da Tuty</title>
+    <script>
+        // Definir arrays de dias e meses
+        const dia = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+        const mes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        const data = new Date();
+
+        // Inserir data no local desejado
+        window.onload = function() {
+            const dataElement = document.getElementById("data-atual");
+            dataElement.innerHTML = `${dia[data.getDay()]} , ${data.getDate()} de ${mes[data.getMonth()]} de ${data.getFullYear()}`;
+        }
+                
+    </script>
+        </head>
+        <body>
+            <header>
+                <div class="divHeader">
+                    <img src="img/logo.png" title="Delícias da Tuty" class="logo" alt="Logo Delícias da Tuty">
+                    
+                    <!-- Menu -->
+                    <nav>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Produtos</a></li>
+                            <li><a href="#">Contato</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+
+        <div class="container">
+            <div class="slide">
+            <!-- Imagem de slide / ITEM 1 -->
+                <div class="item" style="background-image: url(./img/1.jpg);">
+                    <div class="content">
+                        <div class="nome">TORTA DE MORANGO</div>
+                        <div class="des">Feita com massa leve e crocante, creme de baunilha suave e morangos frescos selecionados, nossa torta é finalizada com brilho natural e todo o carinho artesanal. Uma combinação perfeita de frescor, doçura e delicadeza em cada fatia.</div>
+                        <button>Saiba mais</button>
+                    </div>
+                </div>
+                <!-- Imagem de slide / ITEM 2 -->
+                <div class="item" style="background-image: url(./img/2.jpg);">
+                    <div class="content">
+                        <div class="nome">PÃO DE MEL </div>
+                        <div class="des">Feito com mel puro, especiarias selecionadas e recheio de doce de leite cremoso, nosso pão de mel é banhado no chocolate ao leite e finalizado com todo o cuidado artesanal. Uma explosão de sabor e aconchego a cada mordida.</div>
+                        <button>Saiba mais</button>
+                    </div>
+                </div>
+
+                <!-- Imagem de slide / ITEM 3 -->
+                <div class="item" style="background-image: url(./img/3.jpg);">
+                    <div class="content">
+                        <div class="nome">TORTA DE FRANGO </div>
+                        <div class="des">Feita com massa douradinha e leve, recheada com frango desfiado temperado no capricho, milho, ervilhas e um toque cremoso irresistível. Nossa torta é finalizada com uma cobertura delicada e assada até o ponto perfeito. Sabor caseiro, carinho em cada pedaço e aquele gostinho que abraça.</div>
+                    </div>
+                </div>
+
+                <!-- Imagem de slide / ITEM 4-->
+                <div class="item" style="background-image: url(./img/4.jpg);">
+                    <div class="content">
+                        <div class="nome">DOCES </div>
+                        <div class="des">Brigadeiro com sabor intenso de chocolate, beijinho feito com coco fresquinho e moranguinho com aquele rosinha que conquista só de olhar. Cada um é enrolado à mão com carinho, finalizado com açúcar ou confeitos e feito pra adoçar aniversários, encontros ou só um dia qualquer. </div>
+                    </div>
+                </div>
+
+                <!--Imagem de slide / ITEM 5-->
+                <div class="item" style="background-image: url(./img/5.jpg);">
+                    <div class="content">
+                        <div class="nome">BOLOS DECORATIVOS</div>
+                        <div class="des">Massa fofinha, recheio irresistível e uma decoração que encanta antes mesmo da primeira fatia. Nossos bolos são feitos sob medida para transformar momentos em memórias inesquecíveis — com flores, cores, temas e todo o carinho artesanal em cada detalhe. Perfeitos para aniversários, celebrações ou simplesmente para surpreender. </div>
+                    </div>
+                </div>
+
+            </div>
+            
+        <div class="button">
+            <button class="prev"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="next"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+    </div>
+    
+    <script src="principal.html"></script>
+
+    <!-- Imagem de transição / cobertura -->
+    <div class="cobertura">
+        <img src="img/cobertura.png" alt="Transição decorativa" class="imagem-full">
+    </div>
+
+    <!-- Sobre nós -->
+    <section class="sobre_nos">
+        <h2 class="titulo_sobrenos">SOBRE NÓS</h2>
+        <section class="sobre_nos">
+            <p>
+                A marca <i>Delícias da Tuty</i> nasceu em 2019 com o intuito de adoçar a vida das pessoas e transformar momentos comuns em experiências inesquecíveis.
+            </p>
+            <p>
+                Fruto da paixão pela cozinha e confeitaria artesanal, a Tuty começou sua jornada como cozinheira e confeiteira, sempre com muito carinho, dedicação e um toque especial em cada receita.
+            </p>
+            <p>
+                Desde então, nos tornamos referência em sabor, qualidade e amor em forma de comida. Cada doce, bolo ou torta é feito com ingredientes selecionados e muito cuidado tudo para levar até você o verdadeiro sabor de um afeto feito à mão.
+            </p>
+            <p>
+                Seja em festas, encontros ou na rotina do dia a dia, as <i>Delícias da Tuty</i> estão aqui para tornar qualquer ocasião mais doce e especial.
+            </p>
+        </section>
+        <p id="data-atual"></p>
+    </section>
+
+    <!-- Rodapé do site -->
+    <footer>
+        <img src= "img/logo.png" alt="logo" class="logo_footer"/>
+        <p>Encomendas on-line: <a href="https://wa.me/5511"><i class="fa fa-whatsapp"></i> (11) 1234-5678</a></p>
+    </footer>
+</body>
+</html>

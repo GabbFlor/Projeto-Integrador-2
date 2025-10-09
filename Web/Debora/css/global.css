@@ -1,0 +1,341 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Italiana&display=swap');
+
+/* Estilização do BODY do site */
+body {
+    margin: 0;
+    border: 0;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Estilização da Logo*/
+.logo {
+    width: 12%;
+    margin: 2px 2px -20px 10px;
+}
+
+/* Estilização do Header*/
+header {
+    background-color: #f9e9e9;
+    position: relative;
+}
+
+/* Estilização da DIV do header*/
+.divHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 10px;
+    height: 150px;
+}
+
+/* Estilização do MENU do site*/
+nav {
+    font-family: 'Italiana', serif;
+    font-style: bold;
+    font-size: large;
+    top: 70px;
+    right: 0;
+    display: inline;
+}
+
+nav li {
+    font-family: 'Italiana', serif;
+    font-style: bold;
+    font-size: large;
+    display: flex;
+    color: #b8696b;
+    font-size: 20px;
+    margin-right: 50px;
+}
+
+nav ul {
+    display: flex;
+    gap: 12px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+nav ul li {
+    display: flex;
+    align-items: center;
+}
+
+/* Campo de busca com ícone */
+.group {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    max-width: 190px;
+}
+
+.input {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #815253e5;
+    transition: .3s ease;
+}
+
+.input::placeholder {
+    color: #9e9ea7;
+}
+
+.input:focus, .input:hover {
+    outline: none;
+    border-color: #b8696b;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+}
+
+.icon {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Estilização dos botões do menu*/
+.botao {
+    outline: 0 !important;
+    border: 0 !important;
+    border-radius: 50%;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b8696b;
+    transition: all ease-in-out 0.3s;
+    cursor: pointer;
+}
+
+.botao:hover {
+    transform: translateY(-3px);
+}
+
+nav a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Estilização geral dos Modais (incluindo o do carrinho)*/
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fixa na tela */
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7); /* Fundo semi-transparente */
+    display: flex; /* Para centralizar o conteúdo */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px; /* Largura máxima para modais */
+    font-family: 'Cormorant Garamond', serif;
+    font-style: bold;
+    font-size: large;
+    border-radius: 12px;
+    text-align: center;
+    position: relative; /* Para posicionar o botão de fechar */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
+.modal h2 {
+    font-family: 'Italiana', serif;
+    font-style: bold;
+    clear: left;
+    text-align: center;
+    color: #b8696b;
+    margin: 10px 0;
+}
+
+.fechar {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.fechar:hover {
+    color: black;
+}
+
+
+/* Estilização do Carrinho*/
+#lista-carrinho {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#lista-carrinho div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinha itens verticalmente */
+    margin-bottom: 10px;
+    padding: 5px 0; /* Adiciona um pouco de padding */
+    border-bottom: 1px solid #eee; /* Linha divisória para os itens */
+}
+
+#lista-carrinho div:last-child {
+    border-bottom: none; /* Remove a linha do último item */
+}
+
+#lista-carrinho button {
+    background: #b8696b;
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em; /* Tamanho da fonte do botão remover */
+}
+
+#lista-carrinho button:hover {
+    background-color: #984f51; /* Efeito hover */
+}
+
+#total-carrinho {
+    text-align: right;
+    font-size: 1.3em; /* Um pouco maior */
+    font-weight: bold;
+    margin-top: 20px;
+    padding-top: 10px; /* Espaço em cima */
+    border-top: 1px solid #ddd; /* Linha para separar do total */
+}
+
+/* Estilização do botão Finalizar Compra no carrinho*/
+.btn-finalc {
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0 auto;
+    position: relative;
+    align-items: center;
+    padding: 10px 24px;
+    font-size: 18px;
+    color: #b8696b;
+    border: 2px solid #b8696b;
+    border-radius: 34px;
+    background-color: transparent;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+    width: 300px;
+    height: 50px;
+}
+
+.btn-finalc::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 100px;
+    height: 80px;
+    border-radius: inherit;
+    scale: 0;
+    z-index: -1;
+    background-color: #b8696b;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.btn-finalc:hover::before {
+    scale: 3;
+}
+
+.btn-finalc:hover {
+    color: #f9e9e9;
+    scale: 1.1;
+    box-shadow: 0 0px 20px #5f393a;
+}
+
+.btn-finalc:active {
+    scale: 1;
+}
+
+/* Estilização do rodapé*/
+footer {
+    background-size: cover;
+    background-position: center;
+    background-color: #b8696b;
+    padding-top: 80px;
+    position: relative;
+    text-align: center;
+    color: white;
+    margin-top: 100px;
+}
+
+.logo_rodape {
+    position: absolute;
+    top: -300px; /*sobe o cículo*/
+    left: 50%;
+    transform: translate(-50%);
+    width: 120px;
+    height: 120%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo_rodape img {
+    width: 1500%;
+}
+
+.conteudo_footer {
+    padding-top: 40px;
+}
+
+.footer_menu a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.flag {
+    width: 30px;
+}
+
+.social_icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.social_icons a {
+    color: white;
+    font-size: 24px;
+    transition: color 0.3s;
+}
+
+.social_icons a:hover {
+    color: rgb(197, 171, 171);
+}
+
+.copyright {
+    text-decoration: none;
+    color: white;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: bold;
+}

@@ -1,0 +1,272 @@
+/* Estilização do BODY do site */
+body {
+    margin: 0;
+    border: none;
+    font-family: "Ahsing";
+    font-optical-sizing: auto;
+    font-weight: normal; /* Ajuste do valor 'font-weight' */
+    font-style: normal;
+    background: fixed;
+}
+
+.logo {
+    width: 15%;
+    margin: 2px 2px -50px 10px;
+}
+
+header {
+    background-color: #f9e9e9;
+    margin: 0;
+}
+
+/* Estilização da DIV do header */
+
+.divHeader {
+    position: relative;
+    align-items: center; /* Alinha verticalmente ao centro */
+    margin: auto;
+    width: 90%;
+    padding-bottom: 0px; /* Reduziu o espaço embaixo */
+    justify-content: space-between;
+}
+
+/* Estilização do MENU do site */
+nav {
+    margin-top: -20px; /* Subiu o menu */
+    display: flex;
+    justify-content: center;
+}
+
+
+/* Estilo dos links do menu */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+nav ul li a {
+    color: #b8696b;
+    text-decoration: none;
+    font-size: 25px;
+    font-family: "Ahsing";
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+}
+
+
+/*Estilização slide (Itens)*/
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1000px;
+    height: 600px;
+    background: #f5f5f5;
+    box-shadow: 0 30px 50px #dbdbdb;
+}
+
+.container .slide .item{
+    width: 200px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    border-radius: 20px;
+    box-shadow: 0 30px 50px #505050;
+    background-position: 50% 50%;
+    background-size: cover;
+    display: inline-block;
+    transition: 0.5s;
+}
+
+.slide .item:nth-child(1),
+.slide .item:nth-child(2){
+    top: 0;
+    left: 0;
+    transform: translate(0, 0);
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.slide .item:nth-child(3){
+    left: 50%;
+}
+.slide .item:nth-child(4){
+    left: calc(50% + 220px);
+}
+.slide .item:nth-child(5){
+    left: calc(50% + 440px);
+}
+
+.slide .item:nth-child(n + 6){
+    left: calc(50% + 660px);
+    opacity: 0;
+}
+
+.item .content{
+    position: absolute;
+    top: 50%;
+    left: 100px;
+    width: 300px;
+    text-align: left;
+    color: #eee;
+    transform: translate(0, -50%);
+    font-family: system-ui;
+    display: none;
+}
+
+
+.slide .item:nth-child(2) .content{
+    display: block;
+}
+
+
+.content .name{
+    font-size: 40px;
+    text-transform: uppercase;
+    font-weight: bold;
+    opacity: 0;
+    animation: animate 1s ease-in-out 1 forwards;
+}
+
+.content .des{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: animate 1s ease-in-out 0.3s 1 forwards;
+}
+
+.content button{
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    animation: animate 1s ease-in-out 0.6s 1 forwards;
+}
+
+
+@keyframes animate {
+    from{
+        opacity: 0;
+        transform: translate(0, 100px);
+        filter: blur(33px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translate(0);
+        filter: blur(0);
+    }
+}
+
+
+
+.button{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+}
+
+.button button{
+    width: 40px;
+    height: 35px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+    border: 1px solid #000;
+    transition: 0.3s;
+}
+
+.button button:hover{
+    background: #ababab;
+    color: #fff;
+}
+/* Cobertura */
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.imagem-full {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Estilo do Sobre nós */
+.sobre_nos { /* TEXTO */
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: black;
+    font-family: "Ahsing";
+    text-align: justify;
+}
+
+.sobre_nos p {
+    margin-bottom: 20px;
+}
+
+.cobertura {
+    position: relative;
+    height: 300px; /* Tamanho da cobertura */
+}
+
+.sobre {
+    margin-top: 40px; /* Espaço entre a cobertura e o conteúdo */
+    padding: 20px;
+}
+
+.titulo_sobrenos {
+    color: #b8696b;
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: "Ahsing";
+}
+
+
+/*Estilizaçâo do footer*/
+footer{ 
+    background-color: #f9e9e9;
+    margin: 0;
+    background-size: 100%;
+    background-position: top;
+    padding: 20px 10px 10px 0;
+}
+
+footer i{
+    color: #b8696b;
+}
+
+footer p{
+    color: #b8696b;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: right;
+    margin: 0;
+    padding: 0 10px 20px 0;
+}
+
+.logo_footer{
+    width: 8%;
+    margin-left: 80%;
+}

@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Italiana&display=swap');
+
+/* Estilos gerais */
+body {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: bold;
+  font-size: large;
+  background-color: #b8696b;
+  margin: 0;
+  padding: 20px;
+  color: white;
+}
+
+/* Título principal */
+.titulo {
+  font-family: 'Italiana', serif;
+  font-style: bold;
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+/* Formulário - Este é o container grid principal */
+#pagamentos {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: white; /* Cor de fundo do formulário */
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px #b8696b;
+  display: grid;
+  /* Define duas colunas: a primeira ocupa 2 unidades de fração, a segunda 1 unidade */
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 20px; /* Espaçamento entre as células da grid */
+}
+
+/* RESUMO DO PEDIDO*/
+.pedido {
+  background-color: #b8696b;
+  padding: 15px;
+  border-radius: 5px;
+  /* Posiciona o resumo na segunda coluna, abrangendo 3 linhas */
+  grid-column: 2;
+  grid-row: 1 / span 3; /* Vai da linha 1 e abrange 3 linhas */
+  align-self: start; /* Alinha no início da célula (topo) */
+  position: sticky; /* Mantém o resumo fixo ao rolar, se necessário */
+  top: 20px; /* Distância do topo para o sticky */
+  color: white;
+}
+
+/* Título do resumo */
+.pedido h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-family: 'Italiana', serif;
+  font-style: bold;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* Borda sutil */
+  padding-bottom: 10px;
+}
+
+/* Estilo para cada item do resumo*/
+.item-resumo-compra {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.9); /* Cor para os itens individuais */
+}
+
+
+.pedido p {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.pedido p:last-child {
+  border-top: 1px solid white;
+  padding-top: 10px;
+  font-size: 18px;
+}
+
+/* Estilo para os blocos de seleção de método (Cartão/PIX) */
+.metodo-selecao {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #b8696b;
+    border-radius: 5px;
+    background-color: #b8696b;
+    color: white;
+    /* Garante que o método de pagamento fique na primeira coluna */
+    grid-column: 1;
+}
+
+.metodo-selecao input[type="radio"] {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    accent-color: white; /* Mudar a cor do radio button para contrastar */
+}
+
+.metodo-selecao .label-metodo {
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Regra para o fieldset do cartão, para que ele ocupe a primeira coluna */
+#fieldset-cartao {
+  font-family: 'Italiana', serif;
+  font-style: bold;
+  grid-column: 1; /* Garante que o fieldset do cartão fique na primeira coluna */
+  border: 1px solid #b8696b;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Regra para a informação do PIX, para que ela ocupe a primeira coluna */
+#pix-info { /* ID para o div que contém a frase do PIX */
+  font-family: 'Cormorant Garamond', serif;
+  font-style: bold;
+  font-size: large;
+  grid-column: 1; /* Garante que a info do PIX fique na primeira coluna */
+  margin-top: 15px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: white; /* O fundo da frase PIX volta a ser branco */
+  color: black; /* O texto da frase PIX volta a ser preto */
+  border: 1px solid #b8696b; /* Adiciona a borda similar aos outros elementos */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#pix-info img {
+  margin-top: 15px;
+}
+
+#pix-codigo {
+  margin-top: 20px;
+  font-size: 18px;
+  font-family: 'Courier New', monospace;
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 12px 16px;
+  border-radius: 8px;
+  word-break: break-all;
+  border: 1px dashed #b8696b;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 100%;
+}
+
+legend {
+  font-weight: bold;
+  padding: 0 10px;
+  color: #b8696b;
+}
+
+label {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: bold;
+  font-size: large;
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  color: black;
+  cursor: pointer;
+}
+
+input[type="text"],
+select {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: bold;
+  font-size: large;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #b8696b;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 20px;
+  box-sizing: border-box;
+  color: black; /* Garante que o texto digitado seja preto */
+}
+
+input[type="text"]::placeholder {
+    color: #aaa; /* Cor do placeholder */
+}
+
+input[type="text"]:focus,
+select:focus {
+    outline: none;
+    border-color: #b8696b;
+    box-shadow: 0 0 0 2px rgba(184, 105, 107, 0.5); 
+}
+
+/* Linha dupla para campos lado a lado */
+.linha-dupla {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.linha-dupla .campo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Botões */
+.botoes {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  grid-column: 1 / span 2;
+  justify-content: center; /* Centraliza os botões */
+}
+
+/* Botão Finalizar Compra */
+.btn-finalizar {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: bold;
+  font-size: large;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto 0 auto;
+  position: relative;
+  align-items: center;
+  padding: 10px 24px;
+  font-size: 18px;
+  color: #b8696b;
+  border: 2px solid #b8696b;
+  border-radius: 34px;
+  background-color: transparent;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  overflow: hidden;
+  width: 200px;
+  height: 50px;
+}
+
+.btn-finalizar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 80px;
+  height: 80px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: #b8696b;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.btn-finalizar:hover::before {
+  scale: 3;
+}
+
+.btn-finalizar:hover {
+  color: #f9e9e9;
+  scale: 1.1;
+  box-shadow: 0 0px 20px #5f393a;
+}
+
+.btn-finalizar:active {
+  scale: 1;
+}
+
+/* Botão Voltar ao Menu */
+.btn-menu {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: bold;
+  font-size: large;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto 0 auto;
+  position: relative;
+  align-items: center;
+  padding: 10px 24px;
+  font-size: 18px;
+  color: #b8696b;
+  border: 2px solid #b8696b;
+  border-radius: 34px;
+  background-color: transparent;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  overflow: hidden;
+  width: 300px;
+  height: 50px;
+}
+
+.btn-menu::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100px;
+  height: 80px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: #b8696b;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.btn-menu:hover::before {
+  scale: 3;
+}
+
+.btn-menu:hover {
+  color: #f9e9e9;
+  scale: 1.1;
+  box-shadow: 0 0px 20px #5f393a;
+}
+
+.btn-menu:active {
+  scale: 1;
+}
+
+/* Media Queries para responsividade*/
+@media (max-width: 768px) {
+  #pagamentos {
+    grid-template-columns: 1fr; /* Em telas menores, uma única coluna */
+    padding: 15px;
+  }
+
+    /* Redefine a posição dos elementos para a única coluna */
+  .pedido,
+  .metodo-selecao,
+  #fieldset-cartao,
+  #pix-info {
+    grid-column: 1;
+    grid-row: auto; /* Deixa as linhas automáticas */
+  }
+
+  .botoes {
+    flex-direction: column; /* Botões um abaixo do outro */
+    gap: 15px;
+  }
+
+  button {
+    width: 100%; /* Botões ocupam a largura total em telas pequenas */
+    max-width: none;
+  }
+}

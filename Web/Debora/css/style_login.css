@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Italiana&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Italiana', serif;
+    font-style: bold;
+    font-size: large;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background-color: #b8696b;
+}
+
+.formulario {
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    backdrop-filter: blur(10px); 
+    box-shadow: 0 4px 10px rgba(242, 112, 238, 0.082); /* Sombreamento */
+    color:white;
+    padding: 30px;
+    border-radius: 16px;
+}
+
+.formulario h1 {
+    font-size:28px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;  /*Grossura da fonte */
+}
+
+.caixa-formulario{
+    position: relative;
+    margin-bottom: 30px;
+}
+.caixa-formulario input{
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 16px;
+    outline:none;
+    background-color: #fff;
+    background-color: #b8696b;
+    font-size: 16px;
+     padding: 0 20px;
+}
+
+.caixa-formulario input::placeholder{
+    color: #fff;
+}
+
+/* Icones. Posiciona dentro do caixa-formulario*/
+.caixa-formulario i{
+    position:absolute; 
+    right: 20px;
+    font-size: 20px;
+    top:25%;
+}
+
+.caixa-senha-lembrar-esqueci{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+/* Label -> Descreve campo do formulário*/
+.caixa-senha-lembrar-esqueci label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.caixa-senha-lembrar-esqueci label input {
+   accent-color: #b8696b;
+}
+    
+.caixa-senha-lembrar-esqueci a{
+    text-decoration: none;
+    color:#fff
+}
+
+/*hover ->  usuário passa o mouse sobre um elemento e muda */
+.caixa-senha-lembrar-esqueci a:hover{
+    text-decoration: underline;
+}
+
+button{
+    width: 100%;
+    height: 45px;
+    background-color: white;
+    border:none;
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+    color: #b8696b;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+button::hover {
+    background-color: #b8696b;
+    transform: translate(-5px);
+}
+
+.link-registro{
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.link-registro a {
+    text-decoration: none;
+    color:#fff;
+    font-weight: bold;
+}
+
+.link-registro a:hover {
+    text-decoration: underline;
+}
+
+a {
+    text-decoration: none;
+    color: #b8696b;
+}

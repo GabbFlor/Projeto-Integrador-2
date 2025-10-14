@@ -5,35 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/style_login.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <title>Login</title>
 </head>
 <body>
-  <div class="formulario">
-        <h1>Login</h1>
-        <form action="#">
+    
+    <img src="./img/logo_grande_branco.png" class="logoLogin">
 
-        <div class="caixa-formulario">
+    <div class="container">
+
+        <div class="botaoForm">
+            <div class="btnCor"></div> 
+
+            <button id="btnSignIn">Sign in</button>
+
+            <button id="btnSignUp">Sign Up</button>
+        </div>
+
+        <!-- Formulário de login -->
+        <form id="signIn">
             <input type="text" placeholder="E-mail" required />
-            <i class='bx bxs-user'></i>
-        </div>
+            <i class="fa-solid fa-envelope iEmail" style="color: #9e5e5b;"></i> 
 
-        <div class="caixa-formulario">
             <input type="password" placeholder="Senha" required />
-            <i class='bx bxs-lock-alt'></i>
-        </div>
+            <i class="fa-solid fa-lock iPass"  style="color: #9e5e5b;"></i> 
 
-        <div class="caixa-senha-lembrar-esqueci">
-            <label><input type="checkbox" /> Lembrar senha</label>
-            <a href="#">Esqueceu a senha?</a>
-        </div>
+            <div class="divCheck">
+                <input type="checkbox" />
+                <span>Lembrar senha</span>
+            </div>
 
-        <button type="submit"><a href="index.html">Entrar</a></button>
+            <button type="submit">Sign In</button>
+        </form>
 
-        <div class="link-registro">
-            <p>Não tem conta? <a href="#"><a href="cadastro.html">Cadastre-se </a></a></p>
-        </div>
-    </form>
-  </div>
+        <!-- Formulário de cadastro -->
+        <form id="signUp">
+
+            <input type="text" placeholder="E-mail" required />
+            <i class="fa-solid fa-envelope iEmail"  style="color: #9e5e5b;"></i> 
+
+            <input type="password" placeholder="Senha" id="senha" required />
+            <i class="fa-solid fa-lock iPass"  style="color: #9e5e5b;"></i>
+
+            <input type="password" placeholder="Confirme Sua Senha" id="confirmar" required />
+            <i class="fa-solid fa-lock iPass2"  style="color: #9e5e5b;"></i> 
+            <p id="msg"></p>
+
+
+            <!-- Botão para enviar o formulário de cadastro -->
+            <button type="submit">Sign Up</button>
+        </form>
+
+    </div> 
+        <script src="./js/login.js"></script>
+
 </body>
 
 </html>

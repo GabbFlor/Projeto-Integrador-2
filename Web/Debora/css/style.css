@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Italiana&display=swap');
+
 /* Carrossel */
 .carousel {
   position: relative;
   width: 100%;
-  height: 75vh; /* altura fixa */
+  height: 75vh;
+  /* altura fixa */
   overflow: hidden;
+  z-index: 0 !important;
+  overflow: visible !important;
 }
 
 .carousel-inner {
@@ -40,7 +45,8 @@
   clear: left;
   text-align: center;
   color: #b8696b;
-  margin: 10px 0; /* Ajustado para margem vertical */
+  margin: 10px 0;
+  /* Ajustado para margem vertical */
 }
 
 .titulo1 {
@@ -60,10 +66,10 @@
 /* Cards QUERIDINHOS*/
 .container {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 40px;
   place-items: center;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   margin: auto;
   width: 70vw;
   align-items: stretch;
@@ -84,9 +90,11 @@
   color: white;
   height: 420px;
 }
+
 .card:hover {
   transform: scale(1.05);
 }
+
 .card img {
   width: 100%;
   height: 180px;
@@ -152,21 +160,111 @@
   scale: 1;
 }
 
-/* Estilização da sessão SOBRE NÓS*/
-.sobre_nos {
-  text-align: justify;
-  font-size: large;
-  width: 80%;
-  margin-left: 10%;
-  align-items: center;
-  color: black;
-  margin-top: 30px;
-  margin-bottom: 150px;
+/* Estilização da sessão LANÇAMENTOS*/
+
+.lancamentos {
+  margin-top: 60px;
+  padding-bottom: 50px;
 }
 
-.sobre_nos p {
+h2 {
   text-align: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: bold;
+  margin-top: 50px;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+}
+
+.product-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 500px;
+  height: 500px;
+  border: none;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+}
+
+.product-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Camada escura por cima da imagem */
+.product-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 25px;
+  color: #fff;
+}
+
+.product-name {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.product-price {
+  font-weight: 700;
   font-size: 1.5rem;
+  margin: 8px 0 15px;
+}
+
+.buy-btn {
+  align-self: flex-start;
+  background-color: #b46b6b;
+  border: none;
+  color: white;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.buy-btn:hover {
+  background-color: #b46b6b;
+}
+
+.product-overlay {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.product-card:hover .product-overlay {
+  opacity: 1;
+}
+
+/* Swiper custom */
+.swiper {
+  width: 90%;
+  max-width: 1600px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #b46b6b!important;
+}
+
+.swiper-pagination-bullet-active {
+
+  background: #b46b6b !important;
+}
+
+.swiper-slide {
+  margin-right: 100px; /* controla o espaçamento entre cards */
 }

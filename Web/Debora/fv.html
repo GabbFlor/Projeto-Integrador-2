@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+
+        /* CSS Customizado */
+        .gradient-bg {
+            background: linear-gradient(135deg, #f3e8ff 0%, #fce7f3 100%);
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .product-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .product-description {
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #7c3aed;
+        }
+
+        .product-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .heart-btn {
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .heart-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .add-btn {
+            background: #7c3aed;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-btn:hover {
+            background: #6d28d9;
+        }
+
+        .cart-btn {
+            background: #7c3aed;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            background: #6d28d9;
+        }
+
+        .cart-count {
+            background: white;
+            color: #7c3aed;
+            border-radius: 50%;
+            padding: 4px 8px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #6b7280;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #374151;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9fafb;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .cart-item-info h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-info p {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .cart-item-price {
+            text-align: right;
+        }
+
+        .cart-item-price p {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            color: #dc2626;
+        }
+
+        .cart-total {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 16px;
+            margin-top: 16px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #10b981;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: #059669;
+        }
+
+        .favorites-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            margin-top: 32px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .favorite-item {
+            background: #f9fafb;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .favorite-item .icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .favorite-item h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .favorite-item .price {
+            color: #7c3aed;
+            font-weight: 700;
+        }
+
+        .empty-message {
+            color: #6b7280;
+            text-align: center;
+            padding: 32px;
+            grid-column: 1 / -1;
+        }
+
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+        }
+
+        /* Gradientes para os ícones */
+        .icon-blue { background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); }
+        .icon-green { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); }
+        .icon-pink { background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%); }
+        .icon-yellow { background: linear-gradient(135deg, #facc15 0%, #f59e0b 100%); }
+        .icon-red { background: linear-gradient(135deg, #f87171 0%, #ef4444 100%); }
+        .icon-indigo { background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%); }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .product-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .product-actions {
+                justify-content: center;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-full">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">🛍️ Nossa Loja</h1>
+            <button id="cartBtn" class="cart-btn">
+                🛒 Carrinho
+                <span id="cartCount" class="cart-count">0</span>
+            </button>
+        </div>
+
+        <!-- Products List -->
+        <div class="products-container">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-icon icon-blue">📱</div>
+                <div class="product-info">
+                    <h3 class="product-title">Smartphone Pro</h3>
+                    <p class="product-description">Último modelo com câmera avançada</p>
+                    <span class="product-price">R$ 1.299,00</span>
+                </div>
+                <div class="product-actions">
+                    <button class="heart-btn" data-product="1">🤍</button>
+                    <button class="add-btn add-to-cart" data-product="1" data-name="Smartphone Pro" data-price="1299.00">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-icon icon-green">👟</div>
+                <div class="product-info">
+                    <h3 class="product-title">Tênis Esportivo</h3>
+                    <p class="product-description">Conforto e estilo para o dia a dia</p>
+                    <span class="product-price">R$ 299,90</span>
+                </div>
+                <div class="product-actions">
+                    <button class="heart-btn" data-product="2">🤍</button>
+                    <button class="add-btn add-to-cart" data-product="2" data-name="Tênis Esportivo" data-price="299.90">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-icon icon-pink">🎧</div>
+                <div class="product-info">
+                    <h3 class="product-title">Fone Bluetooth</h3>
+                    <p class="product-description">Som de alta qualidade sem fio</p>
+                    <span class="product-price">R$ 199,99</span>
+                </div>
+                <div class="product-actions">
+                    <button class="heart-btn" data-product="3">🤍</button>
+                    <button class="add-btn add-to-cart" data-product="3" data-name="Fone Bluetooth" data-price="199.99">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-icon icon-yellow">⌚</div>
+                <div class="product-info">
+                    <h3 class="product-title">Smartwatch</h3>
+                    <p class="product-description">Monitore sua saúde e atividades</p>
+                    <span class="product-price">R$ 599,00</span>
+                </div>
+                <div class="product-actions">
+                    <button class="heart-btn" data-product="4">🤍</button>
+                    <button class="add-btn add-to-cart" data-product="4" data-name="Smartwatch" data-price="599.00">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <div class="product-icon icon-red">💻</div>
+                <div class="product-info">
+                    <h3 class="product-title">Notebook Gamer</h3>
+                    <p class="product-description">Performance máxima para jogos</p>
+                    <span class="product-price">R$ 2.999,00</span>
+                </div>
+                <div class="product-actions">
+                    <button class="heart-btn" data-product="5">🤍</button>
+                    <button class="add-btn add-to-cart" data-product="5" data-name="Notebook Gamer" data-price="2999.00">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-icon icon-indigo">📷</div>
+                <div class="product-info">
+                    <h3 class="product-title">Câmera Digital</h3>
+                    <p class="product-description">Capture momentos em alta resolução</p>
+                    <span class="product-price">R$ 899,90</span>
+                </div>
+                <div class="product-actions">
+                    <button class="heart-btn" data-product="6">🤍</button>
+                    <button class="add-btn add-to-cart" data-product="6" data-name="Câmera Digital" data-price="899.90">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Modal -->
+        <div id="cartModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">🛒 Seu Carrinho</h2>
+                    <button id="closeCart" class="close-btn">×</button>
+                </div>
+                <div id="cartItems">
+                    <p class="empty-message">Seu carrinho está vazio</p>
+                </div>
+                <div class="cart-total">
+                    <div class="total-row">
+                        <span>Total:</span>
+                        <span id="cartTotal">R$ 0,00</span>
+                    </div>
+                    <button id="checkoutBtn" class="checkout-btn">
+                        Finalizar Compra
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Favorites Section -->
+        <div class="favorites-section">
+            <h2 class="section-title">❤️ Seus Favoritos</h2>
+            <div id="favoritesList" class="favorites-grid">
+                <p class="empty-message">Nenhum produto favoritado ainda</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let favorites = new Set();
+        let cart = [];
+
+        // Heart/Favorite functionality
+        document.querySelectorAll('.heart-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productId = this.dataset.product;
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('.product-title').textContent;
+                const productPrice = productCard.querySelector('.product-price').textContent;
+                const productEmoji = productCard.querySelector('.product-icon').textContent;
+                
+                if (favorites.has(productId)) {
+                    favorites.delete(productId);
+                    this.textContent = '🤍';
+                } else {
+                    favorites.add(productId);
+                    this.textContent = '❤️';
+                }
+                
+                updateFavoritesList();
+            });
+        });
+
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productId = this.dataset.product;
+                const productName = this.dataset.name;
+                const productPrice = parseFloat(this.dataset.price);
+                
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        quantity: 1
+                    });
+                }
+                
+                updateCartDisplay();
+            });
+        });
+
+        // Cart modal functionality
+        document.getElementById('cartBtn').addEventListener('click', function() {
+            document.getElementById('cartModal').classList.add('show');
+        });
+
+        document.getElementById('closeCart').addEventListener('click', function() {
+            document.getElementById('cartModal').classList.remove('show');
+        });
+
+        document.getElementById('checkoutBtn').addEventListener('click', function() {
+            if (cart.length > 0) {
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const message = `Pedido confirmado! Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+                
+                // Create success message
+                const successDiv = document.createElement('div');
+                successDiv.className = 'success-message';
+                successDiv.textContent = message;
+                document.body.appendChild(successDiv);
+                
+                setTimeout(() => successDiv.remove(), 3000);
+                
+                cart = [];
+                updateCartDisplay();
+                document.getElementById('cartModal').classList.remove('show');
+            }
+        });
+
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cartCount.textContent = totalItems;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="empty-message">Seu carrinho está vazio</p>';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>Qtd: ${item.quantity}</p>
+                        </div>
+                        <div class="cart-item-price">
+                            <p>R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</p>
+                            <button class="remove-btn" onclick="removeFromCart('${item.id}')">Remover</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            cartTotal.textContent = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartDisplay();
+        }
+
+        function updateFavoritesList() {
+            const favoritesList = document.getElementById('favoritesList');
+            
+            if (favorites.size === 0) {
+                favoritesList.innerHTML = '<p class="empty-message">Nenhum produto favoritado ainda</p>';
+            } else {
+                const favoriteItems = Array.from(favorites).map(productId => {
+                    const productCard = document.querySelector(`[data-product="${productId}"]`).closest('.product-card');
+                    const productName = productCard.querySelector('.product-title').textContent;
+                    const productPrice = productCard.querySelector('.product-price').textContent;
+                    const productEmoji = productCard.querySelector('.product-icon').textContent;
+                    
+                    return `
+                        <div class="favorite-item">
+                            <div class="icon">${productEmoji}</div>
+                            <h4>${productName}</h4>
+                            <p class="price">${productPrice}</p>
+                        </div>
+                    `;
+                }).join('');
+                
+                favoritesList.innerHTML = favoriteItems;
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('show');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98e22c2dc47a4e11',t:'MTc2MDM5MzQ4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

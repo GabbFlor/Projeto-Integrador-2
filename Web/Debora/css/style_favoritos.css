@@ -1,11 +1,3 @@
-.heart .bi-heart-fill {
-	color: #e75480 !important;
-	transition: color 0.2s;
-}
-/* Favorito ativo (rosa) */
-.favorito-ativo, .heart.favorito-ativo i, .btn-favorito.favorito-ativo, .heart.favorito-ativo .bi-heart-fill {
-	color: #e75480 !important;
-}
 /* Botão Adicionar ao Carrinho nos cards */
 .btn-adicionar-carrinho {
 	margin-top: 16px;
@@ -29,23 +21,38 @@ main {
 }
 
 .container {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 40px;
-	place-items: stretch;
-	flex-wrap: wrap;
-	margin: auto;
-	width: 70vw;
-	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	margin: 40px auto 0 auto;
+	width: 90vw;
+	max-width: 1100px;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 2px 8px rgba(204, 203, 203, 0.2);
+	padding: 0 0 40px 0;
 }
-
 .titulo1 {
 	font-family: "Italiana", serif;
-	font-style: bold;
-	text-align: center;
+}
+.card {
 	width: 100%;
-	margin-bottom: 20px;
+	box-sizing: border-box;
+	margin-bottom: 0;
+	border-bottom: 2px solid #e2b6b8;
+	border-radius: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	background: #fff;
 	color: #b8696b;
+	padding: 24px 32px;
+	font-family: "Cormorant Garamond", serif;
+	font-size: 1.2rem;
+	position: relative;
+}
+.card:last-child {
+	border-bottom: none;
 }
 
 /* Estilização dos cards de produtos*/
@@ -135,82 +142,86 @@ main {
 
 .card h2 {
 	font-family: "Italiana", serif;
-	font-style: bold;
-	clear: left;
-	text-align: center;
-	color: #b8696b;
-	margin: 10px 0;
+	.card {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		background: #fff;
+		border-radius: 0;
+		box-shadow: none;
+		padding: 24px 32px;
+		font-family: "Cormorant Garamond", serif;
+		font-size: 1.2rem;
+		color: #b8696b;
+		border-bottom: 2px solid #e2b6b8;
+		min-height: 120px;
+		position: relative;
+	}
+	.card:last-child {
+		border-bottom: none;
+	}
+	.card img {
+		width: 90px;
+		height: 90px;
+		object-fit: cover;
+		border-radius: 12px;
+		margin-right: 32px;
+		background: #fff;
+		box-shadow: 0 2px 8px rgba(204, 203, 203, 0.15);
+		font-style: bold;
+		clear: left;
+	}
+
+	.btn-adicionar-carrinho {
+		background: none;
+		border: none;
+		color: #b8696b;
+		font-size: 1.7rem;
+		margin-left: auto;
+		margin-right: 16px;
+		cursor: pointer;
+		transition: color 0.2s;
+		display: flex;
+		align-items: center;
+		box-shadow: none;
+		padding: 0;
+	}
+	.btn-adicionar-carrinho:hover {
+		color: #a04e51;
+		position: absolute;
+		inset: 0;
+		margin: 20px auto 0 auto;
+	}
 }
 
-/* Estilização para o botão de orçamento */
-.btn-orcamento {
-	cursor: pointer;
-	position: relative;
-	padding: 10px 24px;
+/* Ícone de coração (favorito) */
+.heart {
+background: none;
+border: none;
+color: #b8696b;
+font-size: 1.7rem;
+cursor: pointer;
+transition: color 0.2s;
+display: flex;
+align-items: center;
+margin-left: 8px;  
+}
+
+.favorito-ativo,
+.btn-favorito.favorito-ativo {
+	color: #e75480 !important;
+}
+.card-icons {
+	display: flex;
+	flex-direction: row;
 	align-items: center;
-	font-size: 18px;
-	color: #b8696b;
-	border: 2px solid #b8696b;
-	border-radius: 34px;
-	background-color: transparent;
-	font-weight: 600;
-	transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	overflow: hidden;
-	width: 300px;
-	display: block;
-	margin: 20px auto 0 auto;
-	text-decoration: none;
+	margin-left: auto;
+	gap: 8px;
 }
-
-.btn-orcamento::before {
-	content: "";
-	position: absolute;
-	inset: 0;
-	margin: auto;
-	width: 100px;
-	height: 80px;
-	border-radius: inherit;
-	scale: 0;
-	z-index: -1;
-	background-color: #b8696b;
-	transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.btn-orcamento:hover::before {
-	scale: 3;
-}
-
-.btn-orcamento:hover {
-	color: #f9e9e9;
-	scale: 1.1;
-	box-shadow: 0 0px 20px #5f393a;
-}
-
-.btn-orcamento:active {
-	scale: 1;
-}
-
-/* Estilização do botão carrinho  */
-.btn-adicionar-carrinho {
-	cursor: pointer;
-	position: relative;
-	padding: 10px 24px;
-	align-items: center;
-	font-size: 18px;
-	color: #b8696b;
-	border: 2px solid #b8696b;
-	border-radius: 34px;
-	background-color: transparent;
-	font-weight: 600;
-	transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	overflow: hidden;
-	width: 300px;
-	display: block;
-	margin: 20px auto 0 auto;
-}
-
+/* Estilização do botão Adicionar ao Carrinho nos cards */
 .btn-adicionar-carrinho::before {
 	content: "";
+	color: #a04e51;
 	position: absolute;
 	inset: 0;
 	margin: auto;
@@ -272,16 +283,26 @@ main {
 	color: #b8696b;
 }
 
-/*Estilização do ícone de coração nos cards*/
-.heart {
-	position: absolute;
-	top: 12px;
-	right: 12px;
-	cursor: pointer;
-	color: #b8696b;
-	transition: color 0.2s;
+/* Estilização dos cards meus favorito*/
+
+.produto-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-.heart:hover {
-	color: #f9e9e9;
+.produto-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.produto-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
 }

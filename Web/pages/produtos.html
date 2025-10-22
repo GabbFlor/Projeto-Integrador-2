@@ -18,31 +18,58 @@
     <div class="divHeader">
       <img src="../img/logo_grande.png" title="Delícias da Tuty" class="logo"></a>
       <!--Menu-->
+      <div class="pesquisa">
+        <div class="barra-pesquisa">
+          <div class="group">
+            <select class="select" id="categoria">
+              <option value="">Todas as categorias</option>
+              <option value="doce">Doces</option>
+              <option value="salgado">Salgados</option>
+            </select>
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+              <g>
+                <path
+                  d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+                </path>
+              </g>
+            </svg>
+            <input id="buscar" class="buscar" type="text" placeholder="Saiba mais" name="buscar" />
+          </div>
+        </div>
+      </div>
       <nav>
         <ul>
           <!--Itens do Menu-->
-          <li>
-            <div class="group">
-              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
-                <g>
-                  <path
-                    d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
-                  </path>
-                </g>
-              </svg>
-              <input placeholder="Search" type="search" class="input">
+
+          </li>
+          <!--Produtos-->
+          <li class="botao">
+            <a href="produtos.html">Produtos</a>
+          </li>
+
+          <!--Favoritos-->
+          <li class="botao">
+            <a href="favoritos.html"><i class="bi bi-heart"></i></a>
+          </li>
+
+          <!--Botão usuário-->
+          <li class="usuario-menu">
+            <button id="usuarioBtn" class="botao" type="button" aria-haspopup="true" aria-expanded="false">
+              <i class="bi bi-person"></i>
+            </button>
+            <!--Menu que aparece ao clicar-->
+            <div id="usuarioDropdown" class="dropdown hidden">
+              <a href="login.html">Entrar</a>
+              <a href="cadastro.html">Cadastrar-se</a>
             </div>
           </li>
-          <li class="botao"><a href="index.html">Home</a></li>
-          <li class="botao"><a href="login.html">Entre</a></li>
-          <li class="botao"><a href="cadastro.html">Cadastre se</a></li>
+
+          <!--Carrinho-->
           <li class="botao">
             <a href="#" onclick="abrirCarrinho()">
               <i class="bi bi-cart2"></i>
-              (<span id="contador-carrinho">0</span>)
             </a>
           </li>
-
         </ul>
       </nav>
     </div>
@@ -53,7 +80,7 @@
     <h1 class="titulo1">Nossos Produtos</h1>
 
     <div class="container">
-      <div class="card" data-id="0">
+      <div class="card" data-id="0" data-category="doce" data-name="Brigadeiro Gourmet de Chocolate" data-tags="brigadeiro,chocolate,doces">
         <div class="heart">
           <i class="bi bi-heart"></i>
         </div>
@@ -69,7 +96,7 @@
       </div>
 
 
-      <div class="card" data-id="1">
+      <div class="card" data-id="1" data-category="doce" data-name="Palha Italiana Artesanal" data-tags="palha,italiana,doce">
         <img src="../img/palhaSemFundo.png" alt="Produto 2">
         <div class="heart">
           <i class="bi bi-heart"></i>
@@ -84,7 +111,7 @@
         <button class="btn-adicionar-carrinho">Adicionar ao Carrinho</button>
       </div>
 
-      <div class="card" data-id="2">
+      <div class="card" data-id="2" data-category="doce" data-name="Pão de Mel Gourmet" data-tags="pao,mel,gourmet,doce">
         <img src="../img/paoSemFundo.png" alt="Produto 3">
         <div class="heart">
           <i class="bi bi-heart"></i>
@@ -99,7 +126,7 @@
         <button class="btn-adicionar-carrinho">Adicionar ao Carrinho</button>
       </div>
 
-      <div class="card" data-id="3">
+      <div class="card" data-id="3" data-category="doce" data-name="Trufas Gourmet" data-tags="trufa,chocolate,doce">
         <img src="../img/trufa.png" alt="Produto 1">
         <div class="heart">
           <i class="bi bi-heart"></i>
@@ -114,7 +141,7 @@
         <button class="btn-adicionar-carrinho">Adicionar ao Carrinho</button>
       </div>
 
-      <div class="card" data-id="4">
+      <div class="card" data-id="4" data-category="doce" data-name="Bolo de Pote - Ninho com Morango" data-tags="bolo,pote,ninho,morango,doces">
         <img src="../img/boloDePote.png" alt="Produto 2">
         <div class="heart">
           <i class="bi bi-heart"></i>
@@ -129,7 +156,7 @@
         <button class="btn-adicionar-carrinho">Adicionar ao Carrinho</button>
       </div>
 
-      <div class="card" data-id="5">
+      <div class="card" data-id="5" data-category="salgado" data-name="Torta de Frango Cremosa" data-tags="frango,salgado">
         <img src="../img/tortaFrango.png" alt="Produto 3">
         <div class="heart">
           <i class="bi bi-heart"></i>
@@ -144,7 +171,7 @@
         <button class="btn-adicionar-carrinho">Adicionar ao Carrinho</button>
       </div>
 
-      <div class="card" data-id="6">
+      <div class="card" data-id="6" data-category="doce" data-name="Brownie" data-tags="chcolate,doce">
         <img src="../img/brownie.png" alt="Produto 3">
         <div class="heart">
           <i class="bi bi-heart"></i>
@@ -159,7 +186,7 @@
         <button class="btn-adicionar-carrinho">Adicionar ao Carrinho</button>
       </div>
 
-      <div class="card" data-id="7">
+      <div class="card" data-id="7" data-category="doce" data-name="Torta de Morango" data-tags="morango,doce">
         <img src="../img/tortaMorango.png" alt="Produto 3">
         <div class="heart">
           <i class="bi bi-heart"></i>
@@ -174,7 +201,7 @@
         <button class="btn-adicionar-carrinho">Adicionar ao Carrinho</button>
       </div>
 
-      <div class="card" data-id="8">
+      <div class="card" data-id="8" data-category="salgado" data-name="Quiche" data-tags="quiche,salgado">
         <img src="../img/quiche.png" alt="Produto 3">
         <div class="heart">
           <i class="bi bi-heart"></i>
@@ -189,7 +216,7 @@
         <button class="btn-adicionar-carrinho">Adicionar ao Carrinho</button>
       </div>
 
-      <div class="card" data-id="9">
+      <div class="card" data-id="9" data-category="doce" data-name="Torta de Limão" data-tags="limão,doce">
         <img src="../img/tortaLimao.png" alt="Produto 3">
         <div class="heart">
           <i class="bi bi-heart"></i>
@@ -204,7 +231,7 @@
         <button class="btn-adicionar-carrinho">Adicionar ao Carrinho</button>
       </div>
 
-      <div class="card" data-id="10">
+      <div class="card" data-id="10" data-category="doce" data-name="Mousse de Chocolate" data-tags="mousse,chocolate,doce">
         <img src="../img/mousse.png" alt="Produto 3">
         <div class="heart">
           <i class="bi bi-heart"></i>
@@ -220,7 +247,7 @@
       </div>
 
 
-      <div class="card" data-id="11">
+      <div class="card" data-id="11" data-category="servico" data-name="Orçamento para Festas" data-tags="orçamento,festas,eventos">
         <img src="../img/orcamento.png" alt="Produto 3">
         <div class="heart">
           <i class="bi bi-heart"></i>
@@ -300,6 +327,8 @@
     crossorigin="anonymous"></script>
   <script src="../js/produtos.js"></script>
   <script src="../js/favoritos.js"></script>
+  <script src="../js/menuUsuario.js"></script>
+  <script src="../js/busca_produto.js"></script>
 
 </body>
 

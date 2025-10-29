@@ -120,23 +120,65 @@ function adicionarAoCarrinho(id, quantidade = 1) {
 }
 
 /* ================ FAVORITOS (localStorage) ================ */
+// Guarda/recupera uma lista de objetos de produto em localStorage
 function getFavoritos() {
   return JSON.parse(localStorage.getItem("favoritos")) || [];
 }
-function setFavoritos(arr) {
-  localStorage.setItem("favoritos", JSON.stringify(arr));
+function salvarFavoritos(favoritos) {
+  localStorage.setItem("favoritos", JSON.stringify(favoritos));
 }
+
+// Retorna true se o id já está nos favoritos
 function isFavorito(id) {
-  return getFavoritos().includes(id);
+  if (id === null || id === undefined) return false;
+  return getFavoritos().some(f => String(f.id) === String(id));
 }
-function toggleFavorito(id) {
-  const fav = getFavoritos();
-  const exists = fav.includes(id);
-  const novo = exists ? fav.filter(x => x !== id) : [...fav, id];
-  setFavoritos(novo);
+
+// Adiciona produto (obj) aos favoritos, evitando duplicatas
+function adicionarAosFavoritos(produto) {
+  if (!produto || produto.id === undefined) return false;
+  const favoritos = getFavoritos();
+  if (!favoritos.some(f => String(f.id) === String(produto.id))) {
+    favoritos.push(produto);
+    salvarFavoritos(favoritos);
+    atualizarContadorFavoritos();
+    return true;
+  }
+  return false;
+}
+
+// Remove favorito por id
+function removerFavoritoPorId(id) {
+  let favoritos = getFavoritos();
+  const novo = favoritos.filter(f => String(f.id) !== String(id));
+  salvarFavoritos(novo);
   atualizarContadorFavoritos();
-  return !exists;
+  return novo;
 }
+
+// Alterna estado de favorito: se já existir remove; caso contrário adiciona (usa produto do JSON quando possível)
+function toggleFavorito(id, produtoFallback) {
+  const exists = isFavorito(id);
+  if (exists) {
+    removerFavoritoPorId(id);
+    return false;
+  } else {
+    // tenta encontrar objeto completo nos produtos carregados
+    let prodObj = produtos.find(p => String(p.id) === String(id));
+    if (!prodObj && produtoFallback) prodObj = produtoFallback;
+    // se ainda não tiver, cria um objeto mínimo a partir do fallback
+    if (!prodObj && produtoFallback == null) {
+      prodObj = { id };
+    }
+    if (prodObj) {
+      adicionarAosFavoritos(prodObj);
+      return true;
+    }
+    return false;
+  }
+}
+
+// Atualiza contador visível (se existir elemento com id contador-favoritos)
 function atualizarContadorFavoritos() {
   const el = document.getElementById("contador-favoritos");
   if (el) el.innerText = getFavoritos().length;

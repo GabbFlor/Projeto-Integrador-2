@@ -1,72 +1,38 @@
-(function () {
-  function getFavoritos() {
-    return JSON.parse(localStorage.getItem("favoritos")) || [];
-  }
-  function setFavoritos(arr) {
-    localStorage.setItem("favoritos", JSON.stringify(arr));
-  }
-  function removerFavorito(id) {
-    const fav = getFavoritos().filter(x => x !== id);
-    setFavoritos(fav);
-    render();
-  }
+function carregarFavoritos() {
+  // na página de favoritos o container é .produtos-favoritos
+  const container = document.querySelector('.produtos-favoritos');
+  const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
 
-  function parsePreco(p) {
-    if (!p) return "";
-    return p;
+  if (!container) return;
+  container.innerHTML = ''; // limpa o container
+
+  if (favoritos.length === 0) {
+    container.innerHTML = '<p>Nenhum produto favoritado ainda 😢</p>';
+    return;
   }
 
-  function render() {
-    const container = document.getElementById("favoritos-container");
-    if (!container) return;
-    container.innerHTML = "<p>Carregando...</p>";
+  favoritos.forEach(produto => {
+    const card = document.createElement('div');
+    card.classList.add('card-produto');
+    card.setAttribute('data-id', produto.id);
+    card.innerHTML = `
+      <img src="${produto.imagem}" alt="${produto.titulo || produto.nome}">
+      <h3>${produto.titulo || produto.nome}</h3>
+      <p class="preco">${produto.preco}</p>
+      <button class="btn-remover">Remover</button>
+    `;
+    card.querySelector('.btn-remover').addEventListener('click', () => {
+      removerFavorito(produto.id);
+    });
+    container.appendChild(card);
+  });
+}
 
-    const favIds = getFavoritos();
-    if (favIds.length === 0) {
-      container.innerHTML = "<p>Você não tem favoritos ainda.</p>";
-      return;
-    }
+function removerFavorito(id) {
+  let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+  favoritos = favoritos.filter(prod => String(prod.id) !== String(id));
+  localStorage.setItem('favoritos', JSON.stringify(favoritos));
+  carregarFavoritos();
+}
 
-    fetch("../json/produtolista.json")
-      .then(r => r.ok ? r.json() : Promise.reject("Falha ao buscar produtos"))
-      .then(data => {
-        const produtos = data.lista || [];
-        const itens = produtos.filter(p => favIds.includes(p.id));
-        if (itens.length === 0) {
-          container.innerHTML = "<p>Produtos favoritados não encontrados.</p>";
-          return;
-        }
-        container.innerHTML = "";
-        itens.forEach(p => {
-          const div = document.createElement("div");
-          div.className = "fav-card";
-          div.innerHTML = `
-            <img src="${p.imagem || '../img/placeholder.png'}" alt="${p.titulo}" />
-            <div class="fav-info">
-              <h3>${p.titulo}</h3>
-              <p class="preco">${parsePreco(p.preco)}</p>
-              <div class="fav-actions">
-                <a href="produtos.html" class="btn-voltar">Ver produtos</a>
-                <button class="btn-remover" data-id="${p.id}">Remover</button>
-              </div>
-            </div>
-          `;
-          container.appendChild(div);
-        });
-
-        // attach remove handlers
-        container.querySelectorAll(".btn-remover").forEach(btn => {
-          btn.addEventListener("click", () => {
-            const id = Number(btn.dataset.id);
-            removerFavorito(id);
-          });
-        });
-      })
-      .catch(err => {
-        container.innerHTML = "<p>Erro ao carregar favoritos.</p>";
-        console.error(err);
-      });
-  }
-
-  window.addEventListener("load", render);
-})();
+carregarFavoritos();

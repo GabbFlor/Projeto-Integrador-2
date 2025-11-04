@@ -1,14 +1,16 @@
-let produtos = []; // preenchido pelo JSON
+let produtos = []; // será preenchido pelo JSON
 
+/* ================== HELPERS ================== */
 function $(sel, root = document) { return root.querySelector(sel); }
 function $all(sel, root = document) { return Array.from(root.querySelectorAll(sel)); }
 
 function parsePrecoBRL(str) {
+  // espera "R$12,00" ou "R$2,50" e retorna number
   if (!str) return 0;
   return Number(String(str).replace(/[^0-9,.-]/g, "").replace(",", ".")) || 0;
 }
 
-// CARRINHO (localStorage) 
+/* ================ CARRINHO (localStorage) ================ */
 function getCarrinho() {
   return JSON.parse(localStorage.getItem("carrinho")) || [];
 }
@@ -21,7 +23,7 @@ function atualizarContadorCarrinho() {
   if (contador) contador.innerText = carrinho.reduce((s, p) => s + (p.quantidade || 1), 0);
 }
 
-// MODAIS 
+/* ================ MODAIS ================ */
 function mostrarModalProduto(prod) {
   if (!prod) return;
   const modal = $("#modal");
@@ -52,7 +54,7 @@ function mostrarModalOrcamento(prod) {
   modal.style.display = "flex";
 }
 
-// ABRIR / FECHAR CARRINHO 
+/* ================ ABRIR / FECHAR CARRINHO ================ */
 function abrirCarrinho() {
   const modal = $("#modal-carrinho");
   const lista = $("#lista-carrinho");
@@ -90,7 +92,7 @@ function abrirCarrinho() {
         carr.splice(i, 1);
         setCarrinho(carr);
         atualizarContadorCarrinho();
-        abrirCarrinho(); 
+        abrirCarrinho(); // re-renderiza
       });
     });
   }
@@ -104,20 +106,34 @@ function fecharCarrinho() {
   modal.style.display = "none";
 }
 
-// ADICIONAR AO CARRINHO 
+/* ================ ADICIONAR AO CARRINHO ================ */
 function adicionarAoCarrinho(id, quantidade = 1) {
   const carrinho = getCarrinho();
-  const existente = carrinho.find(item => item.id === id);
+  const existente = carrinho.find(item => Number(item.id) === Number(id));
+  const produto = produtos.find(p => Number(p.id) === Number(id));
+  
+  if (!produto) {
+    console.warn('Produto não encontrado:', id);
+    return;
+  }
+
   if (existente) {
     existente.quantidade = (existente.quantidade || 1) + quantidade;
   } else {
-    carrinho.push({ id, quantidade });
+    carrinho.push({
+      id: produto.id,
+      titulo: produto.titulo,
+      preco: produto.preco,
+      valorNumerico: produto.valorNumerico,
+      quantidade: quantidade,
+      imagem: produto.imagem
+    });
   }
   setCarrinho(carrinho);
   atualizarContadorCarrinho();
 }
 
-// FAVORITOS (localStorage)
+/* ================ FAVORITOS (localStorage) ================ */
 // Guarda/recupera uma lista de objetos de produto em localStorage
 function getFavoritos() {
   return JSON.parse(localStorage.getItem("favoritos")) || [];
@@ -182,7 +198,7 @@ function atualizarContadorFavoritos() {
   if (el) el.innerText = getFavoritos().length;
 }
 
-// RENDER / INICIALIZAÇÃO DE EVENTOS 
+/* ================ RENDER / INICIALIZAÇÃO DE EVENTOS ================ */
 function inicializarEventosNosCards(root = document) {
   // - imagens abrem modal
   $all(".card", root).forEach(card => {
@@ -215,12 +231,13 @@ function inicializarEventosNosCards(root = document) {
             mostrarModalProduto(p || { titulo: card.querySelector("h2, h3")?.innerText });
           }
         } else {
+          // fallback: tenta abrir modal com texto do card
           mostrarModalProduto({ titulo: card.querySelector("h2, h3")?.innerText || "" });
         }
       });
     }
 
-	// botão favorito
+	// botão favorito (ícone dentro .heart ou .btn-favorito)
     if (heartEl) {
       heartEl.style.cursor = "pointer";
       heartEl.addEventListener("click", (e) => {
@@ -283,7 +300,7 @@ function inicializarEventosNosCards(root = document) {
   });
 }
 
-// RENDER DINÂMICO 
+/* ================ RENDER DINÂMICO (caso não haja cards estáticos) ================ */
 function criarCardDOM(produto) {
   const div = document.createElement("div");
   div.className = "card";
@@ -303,7 +320,7 @@ function criarCardDOM(produto) {
   return div;
 }
 
-// CARREGAR PRODUTOS =
+/* ================ CARREGAR PRODUTOS E LIGAR TUDO ================ */
 function carregarProdutos() {
   fetch("../json/produtolista.json")
     .then(r => {
@@ -313,7 +330,7 @@ function carregarProdutos() {
     .then(data => {
       produtos = data.lista || [];
 
-      
+      // se já há cards estáticos (ex.: gerados no HTML), apenas inicializa os eventos
       const containerStatic = document.querySelector(".container") || document.querySelector(".produtos-container");
       const cardsStatic = containerStatic ? containerStatic.querySelectorAll(".card") : null;
 
@@ -333,7 +350,7 @@ function carregarProdutos() {
         inicializarEventosNosCards(container);
       }
 
-      // ligar botões de fechar modais globais
+      // ligar botões de fechar modais globais (se existirem)
       $all(".fechar").forEach(btn => btn.addEventListener("click", () => {
         fecharModal();
         fecharModalOrcamento();
@@ -386,4 +403,5 @@ function fecharModalOrcamento() {
   modal.style.display = "none";
 }
 
+/* ================ START ================ */
 window.addEventListener("load", carregarProdutos);

@@ -18,15 +18,17 @@
 <body>
   <header>
     <div class="divHeader">
-      <img src="../img/logo_grande.png" title="Delícias da Tuty" class="logo">
+      <a href="index.html">
+        <img src="../img/logo_grande.png" title="Delícias da Tuty" class="logo">
+      </a>
       <!--Menu-->
       <div class="pesquisa">
         <div class="barra-pesquisa">
           <div class="group">
-            <select class="select" id="">
+            <select class="select" id="categoria">
               <option value="">Todas as categorias</option>
-              <option value="">Doces</option>
-              <option value="">Salgados</option>
+              <option value="doces">Doces</option>
+              <option value="salgados">Salgados</option>
             </select>
             <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
               <g>
@@ -136,24 +138,24 @@
       <h1 class="titulo1">Que tal um docinho?</h1>
       <!--queridinhos-->
       <div class="container">
-        <div class="card">
+        <div class="card" data-id="1">
           <img src="../img/brigadeiro.jpg" />
           <h2>Brigadeiros</h2>
           <p>Delicados e irresistíveis, nossos brigadeiros são preparados artesanalmente com ingredientes selecionados,
             garantindo uma textura cremosa e um sabor marcante.</p>
           <span class="preco">R$2,50</span>
-          <button class="card-btn" data-id="0"><i class="bi bi-cart2"></i></button>
+          <button class="card-btn" data-id="1"><i class="bi bi-cart2"></i></button>
         </div>
-        <div class="card">
+        <div class="card" data-id="3">
           <img src="../img/paoSemFundo.png" alt="Produto 2">
           <h2>Pão de Mel</h2>
           <p>Elaborado com massa macia e levemente especiada, nosso pão de mel é recheado com doce de leite caseiro e
             coberto com chocolate nobre.</p>
           <br>
           <span class="preco">R$6,00</span>
-          <button class="card-btn" data-id="1"><i class="bi bi-cart2"></i></button>
+          <button class="card-btn" data-id="3"><i class="bi bi-cart2"></i></button>
         </div>
-        <div class="card">
+        <div class="card" data-id="2">
           <img src="../img/palhaSemFundo.png" alt="Produto 3">
           <h2>Palha Italiana</h2>
           <p>Uma releitura sofisticada de um doce tradicional: brigadeiro cremoso combinado a pedaços crocantes de
@@ -177,7 +179,7 @@
     <!--LANÇAMENTOS-->
     <section class="lancamentos">
       <h3 class="titulo3">LANÇAMENTOS</h3>
-        <h1 class="titulo1">Novidades deliciosas para você!</h1>
+      <h1 class="titulo1">Novidades deliciosas para você!</h1>
 
       <section class="carousel-bg d-flex justify-content-center">
         <div class="swiper mySwiper">

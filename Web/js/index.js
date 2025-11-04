@@ -1,39 +1,61 @@
-const produtosQueridinhos = [
-    {
-        imagem: 'img/brigadeiro.jpg',
-        titulo: 'Brigadeiros',
-        descricao: 'Delicados e irresistíveis, nossos brigadeiros são preparados artesanalmente com ingredientes selecionados, garantindo uma textura cremosa e um sabor marcante.',
-        preco: 'R$2,50',
-        valorNumerico: 2.50
-    },
-    {
-        imagem: 'img/paoSemFundo.png',
-        titulo: 'Pão de Mel',
-        descricao: 'Elaborado com massa macia e levemente especiada, nosso pão de mel é recheado com doce de leite caseiro e coberto com chocolate nobre.',
-        preco: 'R$6,00',
-        valorNumerico: 6.00
-    },
-    {
-        imagem: 'img/palhaSemFundo.png',
-        titulo: 'Palha Italiana',
-        descricao: 'Uma releitura sofisticada de um doce tradicional: brigadeiro cremoso combinado a pedaços crocantes de biscoito, finalizado com um toque de açúcar refinado.',
-        preco: 'R$6,00',
-        valorNumerico: 6.00
-    }
-];
+let produtos = [];
+
+// Helpers locais para carrinho (não dependem de outros scripts da página)
+function getCarrinho() {
+    return JSON.parse(localStorage.getItem('carrinho')) || [];
+}
+function setCarrinho(c) {
+    localStorage.setItem('carrinho', JSON.stringify(c));
+}
+function atualizarContadorCarrinho() {
+    const carrinho = getCarrinho();
+    const contador = document.getElementById('contador-carrinho');
+    if (contador) contador.innerText = carrinho.reduce((s, p) => s + (p.quantidade || 1), 0);
+}
 
 // --- Funções para Adicionar ao Carrinho (diretamente) ---
+function adicionarAoCarrinho(cardId, quantidade = 1) {
+    // cardId pode ser o índice do botão (0,1,2) - vamos converter para o ID real do produto
+    const indiceParaId = {
+        "0": 1, // brigadeiro
+        "1": 3, // pão de mel
+        "2": 2  // palha italiana
+    };
+    
+    const idReal = indiceParaId[cardId] || cardId;
+    
+    fetch("../json/produtolista.json")
+        .then(response => {
+            if (!response.ok) throw new Error('Não foi possível carregar produtos: ' + response.status);
+            return response.json();
+        })
+        .then(data => {
+            const lista = data.lista || [];
+            const produto = lista.find(item => Number(item.id) === Number(idReal));
 
-function adicionarProdutoQueridinhoAoCarrinho(productId) {
-    const produtoParaAdicionar = produtosQueridinhos[productId];
-
-    if (produtoParaAdicionar) {
-        let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-        carrinho.push(produtoParaAdicionar); // Adiciona o produto ao carrinho
-        localStorage.setItem('carrinho', JSON.stringify(carrinho));
-        alert(`${produtoParaAdicionar.titulo} foi adicionado ao carrinho!`);
-        atualizarContadorCarrinho(); // Atualiza o contador no cabeçalho
-    }
+            if (produto) {
+                const carrinho = getCarrinho();
+                const existente = carrinho.find(item => Number(item.id) === Number(produto.id));
+                if (existente) {
+                    existente.quantidade = (existente.quantidade || 1) + quantidade;
+                } else {
+                    carrinho.push({
+                        id: produto.id,
+                        titulo: produto.titulo,
+                        preco: produto.preco,
+                        valorNumerico: produto.valorNumerico,
+                        quantidade: quantidade,
+                        imagem: produto.imagem
+                    });
+                }
+                setCarrinho(carrinho);
+                atualizarContadorCarrinho();
+                console.debug('Produto adicionado ao carrinho:', produto.titulo);
+            } else {
+                console.warn('Produto não encontrado ao adicionar ao carrinho. ID:', idReal);
+            }
+        })
+        .catch(err => console.error('Erro ao adicionar ao carrinho:', err));
 }
 
 // --- Event Listeners para os botões "Adicionar ao Carrinho" ---
@@ -42,9 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     botoesAdicionarCarrinho.forEach(botao => {
         botao.addEventListener('click', (event) => {
-            const productId = event.currentTarget.dataset.id; // Pega o data-id do botão clicado
-            if (productId !== undefined) { // Garante que o data-id existe
-                adicionarProdutoQueridinhoAoCarrinho(parseInt(productId)); // Converte para número e chama a função
+            const id = event.currentTarget.dataset.id; // Pega o data-id do botão clicado
+            if (id !== undefined) { // Garante que o data-id existe
+                adicionarAoCarrinho(parseInt(id)); // Converte para número e chama a função
             }
         });
     });
@@ -52,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function abrirCarrinho() {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const carrinho = getCarrinho();
     const lista = document.getElementById('lista-carrinho');
     const total = document.getElementById('total-carrinho');
     lista.innerHTML = '';
@@ -63,15 +85,27 @@ function abrirCarrinho() {
         total.innerText = '';
     } else {
         carrinho.forEach((produto, index) => {
+            // div com classe para estilização consistente
             const div = document.createElement('div');
+            div.className = 'linha-carrinho';
+            
+            // garante que todos os campos existam, mesmo que vazios
+            const nomeProduto = produto.titulo || produto.nome || 'Produto';
+            const precoProduto = produto.preco || 'R$ 0,00';
+            const quantidade = produto.quantidade || 1;
+            
             div.innerHTML = `
-                <span>${produto.titulo} - ${produto.preco}</span>
-                <button onclick="removerDoCarrinho(${index})">Remover</button>
+                <span>${nomeProduto} - ${precoProduto} x${quantidade}</span>
+                <button class="remover-carrinho" onclick="removerDoCarrinho(${index})">Remover</button>
             `;
             lista.appendChild(div);
 
+            // usa valorNumerico se disponível, senão tenta parsear o preço
             if (typeof produto.valorNumerico === 'number') {
-                precoTotal += produto.valorNumerico;
+                precoTotal += produto.valorNumerico * quantidade;
+            } else {
+                const valor = Number(String(produto.preco || '0').replace(/[^0-9,.-]/g, '').replace(',', '.'));
+                if (!isNaN(valor)) precoTotal += valor * quantidade;
             }
         });
         total.innerText = `Total: R$ ${precoTotal.toFixed(2).replace('.', ',')}`;
@@ -85,26 +119,20 @@ function fecharCarrinho() {
 }
 
 function removerDoCarrinho(index) {
-    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    let carrinho = getCarrinho();
     carrinho.splice(index, 1);
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    setCarrinho(carrinho);
     atualizarContadorCarrinho();
     abrirCarrinho(); // Reabre com a lista atualizada
 }
 
 function finalizarCompra() {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const carrinho = getCarrinho();
     if (carrinho.length === 0) {
         alert("Seu carrinho está vazio. Adicione produtos antes de finalizar a compra.");
         return;
     }
     window.location.href = "pagamento.html";
-}
-
-function atualizarContadorCarrinho() {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    const contador = document.getElementById('contador-carrinho');
-    if (contador) contador.innerText = carrinho.length;
 }
 
 window.onload = atualizarContadorCarrinho; // Atualiza o contador ao carregar a página

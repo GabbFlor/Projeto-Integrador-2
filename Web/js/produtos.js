@@ -107,31 +107,63 @@ function fecharCarrinho() {
 }
 
 /* ================ ADICIONAR AO CARRINHO ================ */
-function adicionarAoCarrinho(id, quantidade = 1) {
-  const carrinho = getCarrinho();
-  const existente = carrinho.find(item => Number(item.id) === Number(id));
-  const produto = produtos.find(p => Number(p.id) === Number(id));
-  
-  if (!produto) {
-    console.warn('Produto não encontrado:', id);
-    return;
-  }
+function adicionarAoCarrinho(cardId, quantidade = 1) {
+    // cardId pode ser o índice do botão (0,1,2) - vamos converter para o ID real do produto
+    const indiceParaId = {
+        "0": 1, // brigadeiro
+        "1": 3, // pão de mel
+        "2": 2  // palha italiana
+    };
+    
+    const idReal = indiceParaId[cardId] || cardId;
+    
+    fetch("../json/produtolista.json")
+        .then(response => {
+            if (!response.ok) throw new Error('Não foi possível carregar produtos: ' + response.status);
+            return response.json();
+        })
+        .then(data => {
+            const lista = data.lista || [];
+            const produto = lista.find(item => Number(item.id) === Number(idReal));
 
-  if (existente) {
-    existente.quantidade = (existente.quantidade || 1) + quantidade;
-  } else {
-    carrinho.push({
-      id: produto.id,
-      titulo: produto.titulo,
-      preco: produto.preco,
-      valorNumerico: produto.valorNumerico,
-      quantidade: quantidade,
-      imagem: produto.imagem
-    });
-  }
-  setCarrinho(carrinho);
-  atualizarContadorCarrinho();
+            if (produto) {
+                const carrinho = getCarrinho();
+                const existente = carrinho.find(item => Number(item.id) === Number(produto.id));
+                if (existente) {
+                    existente.quantidade = (existente.quantidade || 1) + quantidade;
+                } else {
+                    carrinho.push({
+                        id: produto.id,
+                        titulo: produto.titulo,
+                        preco: produto.preco,
+                        valorNumerico: produto.valorNumerico,
+                        quantidade: quantidade,
+                        imagem: produto.imagem
+                    });
+                }
+                setCarrinho(carrinho);
+                atualizarContadorCarrinho();
+                console.debug('Produto adicionado ao carrinho:', produto.titulo);
+            } else {
+                console.warn('Produto não encontrado ao adicionar ao carrinho. ID:', idReal);
+            }
+        })
+        .catch(err => console.error('Erro ao adicionar ao carrinho:', err));
 }
+
+// --- Event Listeners para os botões "Adicionar ao Carrinho" ---
+document.addEventListener('DOMContentLoaded', () => {
+    const botoesAdicionarCarrinho = document.querySelectorAll('.card-btn'); // Seleciona todos os botões com a classe card-btn
+
+    botoesAdicionarCarrinho.forEach(botao => {
+        botao.addEventListener('click', (event) => {
+            const id = event.currentTarget.dataset.id; // Pega o data-id do botão clicado
+            if (id !== undefined) { // Garante que o data-id existe
+                adicionarAoCarrinho(parseInt(id)); // Converte para número e chama a função
+            }
+        });
+    });
+});
 
 /* ================ FAVORITOS (localStorage) ================ */
 // Guarda/recupera uma lista de objetos de produto em localStorage

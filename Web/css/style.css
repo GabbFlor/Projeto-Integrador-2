@@ -118,7 +118,7 @@
   color: green;
 }
 
-.card-btn {
+.btn-adicionar-carrinho {
   cursor: pointer;
   position: relative;
   padding: 10px 24px;
@@ -132,7 +132,7 @@
   overflow: hidden;
 }
 
-.card-btn::before {
+.btn-adicionar-carrinho::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -146,17 +146,17 @@
   transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
-.card-btn:hover::before {
+.btn-adicionar-carrinho:hover::before {
   scale: 3;
 }
 
-.card-btn:hover {
+.btn-adicionar-carrinho:hover {
   color: #f9e9e9;
   scale: 1.1;
   box-shadow: 0 0px 20px #5f393a;
 }
 
-.card-btn:active {
+.btn-adicionar-carrinho:active {
   scale: 1;
 }
 

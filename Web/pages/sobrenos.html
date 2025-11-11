@@ -11,26 +11,66 @@
     <title>Delícias da Tuty</title>
     <!-- <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=h3oF1qfrbhOhF6akem-Kq7y25KhkAPrd1NBpv0KfLGJ2XT5A3uAGSDR9hZTTeH-A9S69UU5scGShGhAMcRV9abBqbcw4-IOhjLV-K0fiM6yoYM2h9tg_EFSiuSc5LMhmPqomidLb-S7m7re8tuOXnIRGm9riZ-XlctA523Uuwok-cfJrxJQ-SG_LHA3krHMx0sxZVAtcjZNx06ZqDwitxZ1uRCXQht6gXCdtn7JHCXo" charset="UTF-8"></script></head> -->
 <body>
-     <header>
-        <div class="divHeader">
-            <img src="../img/logo_grande.png" title="Delícias da Tuty" class="logo">
-            <!--Menu-->
-            <nav>
-                <ul>
-                    <!--Itens do Menu-->
-                    <li><div class="group">
-                          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
-                          <input placeholder="Search" type="search" class="input">
-                        </div></li>
-                    <li class="botao"><a href="produtos.html">Produtos</a></li>    
-                    <li class="botao"><a href="login.html">Entre</a></li>
-                    <li class="botao"><a href="cadastro.html">Cadastre se</a></li>
-                    <a href="#" onclick="abrirCarrinho()"><li class="botao"></li><i class="bi bi-cart2"></i></a>
-
-                </ul>
-            </nav>
+  <header>
+    <div class="divHeader">
+      <img src="img/logo_grande.png" title="Delícias da Tuty" class="logo">
+      <!--Menu-->
+      <div class="pesquisa">
+        <div class="barra-pesquisa">
+          <div class="group">
+            <select class="select" id="categoria">
+              <option value="">Todas as categorias</option>
+              <option value="">Doces</option>
+              <option value="">Salgados</option>
+            </select>
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+              <g>
+                <path
+                  d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+                </path>
+              </g>
+            </svg>
+            <input id="buscar" class="buscar" type="text" placeholder="Saiba mais" name="buscar" />
+          </div>
         </div>
-    </header>
+      </div>
+      <nav>
+        <ul>
+          <!--Itens do Menu-->
+
+          </li>
+          <!--Produtos-->
+          <li class="botao">
+            <a href="produtos.html">Produtos</a>
+          </li>
+
+          <!--Favoritos-->
+          <li class="botao">
+            <a href="favoritos.html"><i class="bi bi-heart"></i></a>
+          </li>
+
+          <!--Botão usuário-->
+          <li class="usuario-menu">
+            <button id="usuarioBtn" class="botao" type="button" aria-haspopup="true" aria-expanded="false">
+              <i class="bi bi-person"></i>
+            </button>
+            <!--Menu que aparece ao clicar-->
+            <div id="usuarioDropdown" class="dropdown hidden">
+              <a href="login.html">Entrar</a>
+              <a href="cadastro.html">Cadastrar-se</a>
+            </div>
+          </li>
+
+          <!--Carrinho-->
+          <li class="botao">
+            <a href="#" onclick="abrirCarrinho()">
+              <i class="bi bi-cart2"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
     
             <!--SOBRE NÓS-->
         <section class="sobre_nos">
@@ -76,5 +116,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     <script src="../js/index.js"></script>
+    <script src="js/menuUsuario.js"></script>
+    <script src="js/busca_produto.js"></script>
 </body>
 </html>

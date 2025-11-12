@@ -1,27 +1,16 @@
-let produtos = []; // preenchido pelo JSON
+let produtos = []; // será preenchido pelo JSON
 
+/* ================== HELPERS ================== */
 function $(sel, root = document) { return root.querySelector(sel); }
 function $all(sel, root = document) { return Array.from(root.querySelectorAll(sel)); }
 
 function parsePrecoBRL(str) {
+  // espera "R$12,00" ou "R$2,50" e retorna number
   if (!str) return 0;
   return Number(String(str).replace(/[^0-9,.-]/g, "").replace(",", ".")) || 0;
 }
 
-// CARRINHO (localStorage) 
-function getCarrinho() {
-  return JSON.parse(localStorage.getItem("carrinho")) || [];
-}
-function setCarrinho(c) {
-  localStorage.setItem("carrinho", JSON.stringify(c));
-}
-function atualizarContadorCarrinho() {
-  const contador = document.getElementById("contador-carrinho");
-  const carrinho = getCarrinho();
-  if (contador) contador.innerText = carrinho.reduce((s, p) => s + (p.quantidade || 1), 0);
-}
-
-// MODAIS 
+/* ================ MODAIS ================ */
 function mostrarModalProduto(prod) {
   if (!prod) return;
   const modal = $("#modal");
@@ -52,72 +41,7 @@ function mostrarModalOrcamento(prod) {
   modal.style.display = "flex";
 }
 
-// ABRIR / FECHAR CARRINHO 
-function abrirCarrinho() {
-  const modal = $("#modal-carrinho");
-  const lista = $("#lista-carrinho");
-  const totalSpan = $("#total-carrinho");
-  if (!modal || !lista || !totalSpan) return;
-
-  const carrinho = getCarrinho();
-  lista.innerHTML = "";
-
-  if (carrinho.length === 0) {
-    lista.innerHTML = "<p>Seu carrinho está vazio.</p>";
-    totalSpan.innerText = "";
-  } else {
-    let precoTotal = 0;
-    carrinho.forEach((item, idx) => {
-      const p = produtos.find(x => x.id === item.id) || item;
-      const precoUnit = (typeof p.valorNumerico === "number") ? p.valorNumerico : parsePrecoBRL(p.preco);
-      precoTotal += precoUnit * (item.quantidade || 1);
-
-      const div = document.createElement("div");
-      div.className = "linha-carrinho";
-      div.innerHTML = `
-        <span>${p.titulo} - ${p.preco} x${item.quantidade || 1}</span>
-        <div>
-          <button class="remover-carrinho" data-index="${idx}">Remover</button>
-        </div>
-      `;
-      lista.appendChild(div);
-    });
-    totalSpan.innerText = `Total: R$ ${precoTotal.toFixed(2).replace(".", ",")}`;
-    $all(".remover-carrinho", lista).forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const i = Number(btn.dataset.index);
-        let carr = getCarrinho();
-        carr.splice(i, 1);
-        setCarrinho(carr);
-        atualizarContadorCarrinho();
-        abrirCarrinho(); 
-      });
-    });
-  }
-
-  modal.style.display = "flex";
-}
-
-function fecharCarrinho() {
-  const modal = $("#modal-carrinho");
-  if (!modal) return;
-  modal.style.display = "none";
-}
-
-// ADICIONAR AO CARRINHO 
-function adicionarAoCarrinho(id, quantidade = 1) {
-  const carrinho = getCarrinho();
-  const existente = carrinho.find(item => item.id === id);
-  if (existente) {
-    existente.quantidade = (existente.quantidade || 1) + quantidade;
-  } else {
-    carrinho.push({ id, quantidade });
-  }
-  setCarrinho(carrinho);
-  atualizarContadorCarrinho();
-}
-
-// FAVORITOS (localStorage)
+/* ================ FAVORITOS (localStorage) ================ */
 // Guarda/recupera uma lista de objetos de produto em localStorage
 function getFavoritos() {
   return JSON.parse(localStorage.getItem("favoritos")) || [];
@@ -182,7 +106,7 @@ function atualizarContadorFavoritos() {
   if (el) el.innerText = getFavoritos().length;
 }
 
-// RENDER / INICIALIZAÇÃO DE EVENTOS 
+/* ================ RENDER / INICIALIZAÇÃO DE EVENTOS ================ */
 function inicializarEventosNosCards(root = document) {
   // - imagens abrem modal
   $all(".card", root).forEach(card => {
@@ -215,12 +139,13 @@ function inicializarEventosNosCards(root = document) {
             mostrarModalProduto(p || { titulo: card.querySelector("h2, h3")?.innerText });
           }
         } else {
+          // fallback: tenta abrir modal com texto do card
           mostrarModalProduto({ titulo: card.querySelector("h2, h3")?.innerText || "" });
         }
       });
     }
 
-	// botão favorito
+	// botão favorito (ícone dentro .heart ou .btn-favorito)
     if (heartEl) {
       heartEl.style.cursor = "pointer";
       heartEl.addEventListener("click", (e) => {
@@ -283,7 +208,7 @@ function inicializarEventosNosCards(root = document) {
   });
 }
 
-// RENDER DINÂMICO 
+/* ================ RENDER DINÂMICO (caso não haja cards estáticos) ================ */
 function criarCardDOM(produto) {
   const div = document.createElement("div");
   div.className = "card";
@@ -303,7 +228,7 @@ function criarCardDOM(produto) {
   return div;
 }
 
-// CARREGAR PRODUTOS =
+/* ================ CARREGAR PRODUTOS E LIGAR TUDO ================ */
 function carregarProdutos() {
   fetch("../json/produtolista.json")
     .then(r => {
@@ -313,7 +238,7 @@ function carregarProdutos() {
     .then(data => {
       produtos = data.lista || [];
 
-      
+      // se já há cards estáticos (ex.: gerados no HTML), apenas inicializa os eventos
       const containerStatic = document.querySelector(".container") || document.querySelector(".produtos-container");
       const cardsStatic = containerStatic ? containerStatic.querySelectorAll(".card") : null;
 
@@ -333,7 +258,7 @@ function carregarProdutos() {
         inicializarEventosNosCards(container);
       }
 
-      // ligar botões de fechar modais globais
+      // ligar botões de fechar modais globais (se existirem)
       $all(".fechar").forEach(btn => btn.addEventListener("click", () => {
         fecharModal();
         fecharModalOrcamento();
@@ -386,4 +311,5 @@ function fecharModalOrcamento() {
   modal.style.display = "none";
 }
 
+/* ================ START ================ */
 window.addEventListener("load", carregarProdutos);

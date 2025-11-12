@@ -9,6 +9,21 @@
     const categoriaSelect = document.querySelector(`#${SELECT_ID}`);
     if (!campoBusca || !categoriaSelect) return;
 
+    // Se estiver na página inicial, configurar para redirecionar
+    const isHomePage = window.location.pathname.endsWith('index.html');
+    if (isHomePage) {
+        campoBusca.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = campoBusca.value.trim();
+                const categoria = categoriaSelect.value;
+                localStorage.setItem(STORAGE_KEY, query);
+                localStorage.setItem(STORAGE_CAT_KEY, categoria);
+                window.location.href = 'produtos.html';
+            }
+        });
+        return;
+    }
+
     // util
     const normalize = s => (s || "").toString().trim().toLowerCase();
     const debounce = (fn, wait) => {

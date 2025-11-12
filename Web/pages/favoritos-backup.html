@@ -19,6 +19,7 @@
             <a href="index.html">
                 <img src="../img/logo_grande.png" title="Delícias da Tuty" class="logo">
             </a>
+
             <div class="pesquisa">
                 <div class="barra-pesquisa">
                     <div class="group">
@@ -77,29 +78,18 @@
         </div>
     </main>
 
-        <!-- Modal de Detalhes do Produto -->
-    <div id="modal" class="modal">
-      <div class="modal-content">
-        <span class="fechar" onclick="fecharModal()">&times;</span>
-        <img id="modal-img" src="" alt="Imagem do Produto" />
-        <h2 id="modal-titulo"></h2>
-        <p id="modal-descricao"></p>
-        <span id="modal-preco" class="preco"></span>
-      </div>
-    </div>
 
     <!-- Modal do Carrinho -->
     <div id="modal-carrinho" class="modal">
-      <div class="modal-content">
-        <span class="fechar" onclick="fecharCarrinho()">&times;</span>
-        <h2>Seu Carrinho</h2>
-        <div id="lista-carrinho"></div>
-        <p id="total-carrinho"></p>
-        <button class="btn-finalc" onclick="finalizarCompra()">Finalizar Compra</button>
-      </div>
+        <div class="modal-content">
+            <span class="fechar" onclick="fecharCarrinho()">&times;</span>
+            <h2>Seu Carrinho</h2>
+            <div id="lista-carrinho"></div>
+            <p id="total-carrinho"></p>
+            <button class="btn-finalc" onclick="finalizarCompra()">Finalizar Compra</button>
+        </div>
     </div>
-  </main>
-  
+
     <!--Rodapé-->
     <footer>
         <div class="logo_rodape">
@@ -130,10 +120,8 @@
         </div>
     </footer>
 
+    <script src="../js/index.js"></script>
     <script src="../js/favoritos.js"></script>
-    <script src="../js/carrinhoGlobal.js">
-
-    </script>
 </body>
 
 </html>

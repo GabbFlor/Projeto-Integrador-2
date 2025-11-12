@@ -10,7 +10,7 @@ function carregarFavoritos() {
   const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
 
   if (!container) return;
-  container.innerHTML = ''; // limpa o container
+  container.innerHTML = '';
 
   if (favoritos.length === 0) {
     container.innerHTML = '<p class="sem-favoritos">Nenhum produto favoritado ainda 😢</p>';
@@ -24,7 +24,6 @@ function carregarFavoritos() {
 
     item.innerHTML = `
       <img src="${produto.imagem || '../img/sem-imagem.png'}" alt="${produto.titulo || produto.nome}" />
-
       <div class="produto-info">
         <div class="linha-superior">
           <h3 class="produto-titulo">${produto.titulo || produto.nome || 'Produto'}</h3>
@@ -46,15 +45,25 @@ function carregarFavoritos() {
 
     const btnCarrinho = item.querySelector('.btn-adicionar-carrinho');
     btnCarrinho.addEventListener('click', () => {
-      if (typeof window.abrirCarrinho === 'function') {
-        window.abrirCarrinho();
-      } else if (typeof abrirCarrinho === 'function') {
-        abrirCarrinho();
+      // Usa as funções globais do carrinho.js para consistência
+      let carrinho = getCarrinho();  // Função global
+      const produtoExistente = carrinho.find(p => String(p.id) === String(produto.id));
+      if (produtoExistente) {
+        produtoExistente.quantidade = (produtoExistente.quantidade || 1) + 1;
       } else {
-        console.warn('Função abrirCarrinho() não encontrada.');
+        carrinho.push({
+          id: produto.id,
+          titulo: produto.titulo || produto.nome,
+          preco: produto.preco,
+          valorNumerico: parseFloat(String(produto.preco).replace(/[^\d,]/g, '').replace(',', '.')),
+          imagem: produto.imagem || '../img/sem-imagem.png',
+          quantidade: 1
+        });
       }
+      setCarrinho(carrinho);  // Função global
+      alert(`${produto.titulo} foi adicionado ao carrinho!`);
+      atualizarContadorCarrinho();  // Função global
     });
-
     container.appendChild(item);
   });
 }

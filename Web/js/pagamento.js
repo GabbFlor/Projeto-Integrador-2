@@ -22,16 +22,17 @@ document.addEventListener("DOMContentLoaded", () => {
             itensResumoDiv.innerHTML = '<p>Nenhum item no carrinho.</p>';
         } else {
             carrinho.forEach(produto => {
+                const quantidade = produto.quantidade || 1; // Usa 1 como padrão se não houver quantidade
                 const itemDiv = document.createElement('div');
                 itemDiv.classList.add('item-resumo-compra');
                 itemDiv.innerHTML = `
-                    <span>${produto.titulo}</span>
+                    <span>${produto.titulo} x${quantidade}</span>
                     <span>${produto.preco}</span> `;
                 itensResumoDiv.appendChild(itemDiv);
 
-                // Soma o valor numérico para o total
+                // Soma o valor numérico multiplicado pela quantidade
                 if (typeof produto.valorNumerico === 'number') {
-                    totalItens += produto.valorNumerico;
+                    totalItens += produto.valorNumerico * quantidade;
                 }
             });
         }

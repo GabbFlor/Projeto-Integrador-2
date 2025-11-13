@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minhas Avaliações - Delícias da Tuty</title>
+
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/style_avaliacoes.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="divHeader">
+            <a href="index.html">
+                <img src="../img/logo_grande.png" title="Delícias da Tuty" class="logo" />
+            </a>
+
+            <div class="pesquisa">
+                <div class="barra-pesquisa">
+                    <div class="group">
+                        <select class="select" id="categoria">
+                            <option value="">Todas as categorias</option>
+                            <option value="">Doces</option>
+                            <option value="">Salgados</option>
+                        </select>
+                        <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+                            <path
+                                d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66a.75.75 0 001.06-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+                            </path>
+                        </svg>
+                        <input id="buscar" class="buscar" type="text" placeholder="Saiba mais" name="buscar" />
+                    </div>
+                </div>
+            </div>
+
+            <nav>
+                <ul>
+                    <li class="botao"><a href="produtos.html">Produtos</a></li>
+                    <li class="botao"><a href="favoritos.html"><i class="bi bi-heart"></i></a></li>
+                    <li class="usuario-menu">
+                        <button id="usuarioBtn" class="botao" aria-haspopup="menu" aria-expanded="false">
+                            <i class="bi bi-person"></i>
+                        </button>
+                        <div id="usuarioDropdown" class="dropdown hidden" role="menu">
+                            <a href="login.html" role="menuitem">Entrar</a>
+                            <a href="cadastro.html" role="menuitem">Cadastrar-se</a>
+                        </div>
+                    </li>
+                    <li class="botao">
+                        <a href="#" onclick="abrirCarrinho()"><i class="bi bi-cart2"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="titulo1">
+            Minhas Avaliações <span class="heart"><i class="bi bi-clipboard-heart"></i></span>
+        </h1>
+
+        <div class="container">
+            <!-- Container onde o JS vai inserir os cards -->
+            <div class="produtos-avaliados">
+                <!-- Produtos avaliados inseridos pelo JS -->
+            </div>
+        </div>
+
+        <section class="recomendacoes">
+            <h3 class="titulo3">RECOMENDAÇÕES</h3>
+            <h1 class="titulo1">Você Também Pode Gostar</h1>
+            <!-- recomendações -->
+            <div class="container">
+                <div class="card" data-id="1">
+                    <img src="../img/brigadeiro.jpg" />
+                    <h2>Brigadeiros </h2>
+                    <p>Delicados e irresistíveis, nossos brigadeiros são preparados artesanalmente com ingredientes
+                        selecionados,
+                        garantindo uma textura cremosa e um sabor marcante.</p>
+                    <span class="preco">R$2,50</span>
+                    <button class="btn-comprar" data-id="1"><i class="bi bi-cart2"></i></button>
+                </div>
+
+                <div class="card" data-id="2">
+                    <img src="../img/paoSemFundo.png" />
+                    <h2>Pão de Mel</h2>
+                    <p>Elaborado com massa macia e levemente especiada, nosso pão de mel é recheado com doce de leite
+                        caseiro e coberto com chocolate nobre.</p>
+                    <br>
+                    <span class="preco">R$6,00</span>
+                    <button class="btn-comprar" data-id="2"><i class="bi bi-cart2"></i></button>
+                </div>
+
+                <div class="card" data-id="3">
+                    <img src="../img/palhaSemFundo.png" />
+                    <h2>Palha Italiana</h2>
+                    <p>Uma releitura sofisticada de um doce tradicional: brigadeiro cremoso combinado a pedaços
+                        crocantes de biscoito, finalizado com um toque de açúcar refinado.</p>
+                    <span class="preco">R$6,00</span>
+                    <button class="btn-comprar" data-id="3"><i class="bi bi-cart2"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal do Carrinho -->
+        <div id="modal-carrinho" class="modal">
+            <div class="modal-content">
+                <span class="fechar" onclick="fecharCarrinho()">&times;</span>
+                <h2>Seu Carrinho</h2>
+                <div id="lista-carrinho"></div>
+                <p id="total-carrinho"></p>
+                <button class="btn-finalc" onclick="finalizarCompra()">Finalizar Compra</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="logo_rodape">
+            <img src="../img/logo_redonda-cortada.png" alt="Delícias da Tuty" />
+        </div>
+
+        <div class="conteudo_footer">
+            <nav class="footer_menu">
+                <a href="#">Sobre</a>
+                <a href="contato.html">Contato</a>
+                <a href="favoritos.html">Privacy & Terms</a>
+                <img src="../img/brasil.jpg" alt="Brasil" class="flag" />
+            </nav>
+
+            <div class="social_icons">
+                <a href="mailto:rota_gastronomica@gamil.com"><i class="bi bi-envelope-fill"></i></a>
+                <a href="https://instagram.com/delicias.da.tuty" target="_blank"><i class="bi bi-instagram"></i></a>
+                <a href="https://wa.me/5511971187204" target="_blank"><i class="bi bi-whatsapp"></i></a>
+            </div>
+
+            <a class="copyright">Copyright &copy; Delícias da Tuty 2025</a>
+        </div>
+    </footer>
+
+    <script src="../js/avaliacoes.js"></script>
+</body>
+
+</html>

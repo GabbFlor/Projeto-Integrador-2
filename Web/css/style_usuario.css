@@ -1,0 +1,165 @@
+.dados-pessoais {
+    font-family: 'Italiana', serif;
+    color: #3c3c3c;
+    display: flex;
+    flex-direction: column;
+    /* Adicione esta linha */
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    color: #b8696b;
+    margin-bottom: 1rem;
+}
+
+.card-dados {
+    border: 2px solid #b8696b;
+    border-radius: 4px;
+    padding: 2rem;
+    position: relative;
+    width: 900px;
+}
+
+.dados-enderecos {
+    font-family: 'Italiana', serif;
+    color: #3c3c3c;
+    display: flex;
+    flex-direction: column;
+    /* Adicione esta linha */
+    height: 60vh;
+    justify-content: center;
+    align-items: center;
+}
+
+/* LINHAS */
+.linha {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    /* espacinho entre as colunas */
+    margin-bottom: 1.5rem;
+}
+
+/* cada “bloco” dentro da linha */
+.coluna {
+    flex: 1;
+    /* as duas colunas dividem o espaço igualmente */
+}
+
+h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+}
+
+p {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+
+.btn-editar,
+.btn-editar1,
+.btn-editar2 {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: none;
+    color: #b8696b;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-editar:hover,
+.btn-editar1:hover,
+.btn-editar2:hover {
+    text-decoration: underline;
+}
+
+/* Mini-cards para cada endereço */
+.mini-card {
+    border: 2px solid #b8696b;
+    border-radius: 4px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 435px;
+    position: relative;
+}
+
+/* Botão Editar dentro de cada mini-card */
+.mini-card .btn-editar1,
+.mini-card .btn-editar2 {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: none;
+    color: #b8696b;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.mini-card .btn-editar1:hover,
+.mini-card .btn-editar2:hover {
+    text-decoration: underline;
+}
+
+.pedido-card {
+    width: 80%;
+    margin: 20px auto;
+    border: 2px solid #c97a7a;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+    font-family: 'Cormorant', serif;
+}
+
+.pedido-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #f6e3e3;
+    border-bottom: 1px solid #c97a7a;
+}
+
+.pedido-info h4 {
+    margin: 0;
+    font-weight: bold;
+}
+
+.pedido-id-status {
+    text-align: right;
+}
+
+.pedido-produtos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 20px 10px;
+}
+
+.produto-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.produto-item img {
+    width: 80px;
+    border-radius: 10px;
+}
+
+.btn-detalhes {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 25px;
+    background: #c97a7a;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
